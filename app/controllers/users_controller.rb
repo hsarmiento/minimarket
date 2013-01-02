@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :signed_in_user, only: [:edit, :update, :show]
+  before_filter :correct_user, only: [:edit, :update, :show]
   # GET /users
   # GET /users.json
   def index
@@ -80,4 +82,23 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  private 
+
+  def signed_in_user
+    unless signed_in?
+        store_location
+        flash[:notice] = "Tienes que registrarte para entrar"
+        redirect_to login_url
+    end
+  end
+
+  def correct_user
+      @user = User.find(params[:id])
+      unless current_user?(@user)
+          redirect_to current_user
+      end
+  end
+
 end

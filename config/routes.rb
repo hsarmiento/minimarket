@@ -1,10 +1,14 @@
 Minimarket::Application.routes.draw do
   #get "static_pages/home"
   
-  root to: 'static_pages#home'
-  resources :users
 
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+
+  root to: 'sessions#new'
   match '/', to: 'static_pages#home'
+  match '/login', to: 'sessions#new'
+  match '/logout', to: 'sessions#destroy', via: :delete
   #match '/signup', to: 'users#new'
   #match '/login', to: 'sessions#new'
 

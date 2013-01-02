@@ -14,7 +14,7 @@
 #
 development:
   adapter: postgresql
-  encoding: unicode
+  encoding: utf-8
   database: minimarket_development
   pool: 5
   host: localhost
