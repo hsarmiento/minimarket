@@ -1,0 +1,16 @@
+<% provide(:title, "Editar proveedor: "+@provider.name) %>
+<div class="row">
+	<h1>Actualizar datos de <%=@provider.name %></h1>
+	<div class="span6 offset3">
+		<%= form_for(@provider) do |p|%>
+
+		<%= p.label :name%>
+		<%= p.text_field :name%>
+
+		<%= p.label :phone%>
+		<%= p.text_field :phone%>
+
+		<%= p.submit "Guardar cambios", class: "btn btn-large btn-primary"%>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,28 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id          :integer          not null, primary key
+#  provider_id :integer
+#  pay_at      :datetime
+#  pay_type    :integer
+#  amount      :float
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  provider_id: 1
+  received_at: 2013-01-03 10:44:55
+  pay_at: 2013-01-03 10:44:55
+  pay_type: 1
+  amount: 1.5
+
+two:
+  provider_id: 1
+  received_at: 2013-01-03 10:44:55
+  pay_at: 2013-01-03 10:44:55
+  pay_type: 1
+  amount: 1.5

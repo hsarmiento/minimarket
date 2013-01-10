@@ -1,0 +1,51 @@
+<% provide(:title, 'Pedidos') %>
+
+<div class="row">
+	<h1>Listado de  Pedidos</h1>
+	<% if @orders.any?%>
+		<div class="span10 offset2">
+			<table class="table table-striped">
+  				<thead>
+    				<tr>
+    					<th>Proveedor</th>
+    					<th>Número de factura</th>
+	      				<th>Monto  </th>
+	      				<th>Forma de pago</th>
+	      				<th>Número de cheque</th>
+		     			<th>Fecha de recibo</th>
+		     			<th>Fecha de pago</th>
+		     			<th></th>	     			
+    				</tr>
+  				</thead>
+  				<tbody>
+  					<% @orders.each do |order| %>
+	    				<tr>
+	    					<td><%= order.provider.name %></td>
+	    					<td><%= order.invoice%></td>
+		      				<td>$ <%= order.amount.to_i%></td>
+		      				<% if order.pay_type == 1%>
+		      					<td>Efectivo</td>
+	      					<% elsif  order.pay_type == 2%>
+	      						<td>Cheque 7 dias</td>
+      						<% elsif  order.pay_type == 3%>
+      							<td>Cheque 14 dias</td>
+  							<% elsif  order.pay_type == 4%>
+      							<td>Cheque 30 dias</td>
+  							<% elsif  order.pay_type == 5%>
+      							<td>Cheque 60 dias</td>
+  							<% end %>
+							<td><%= order.number_check%></td>
+		      				<td><%= order.received_at.strftime("%d-%m-%Y")%></td>
+		      				<td><%= order.pay_at.strftime("%d-%m-%Y")%></td>
+		      				<td><%= link_to 'Eliminar', order, method: :delete, data: {confirm: "Esta seguro de eliminar este pedido?"} %></td>
+		      				
+		    			</tr>
+    				<% end %>
+  				</tbody>
+			</table>
+			<%= will_paginate @orders%>
+		</div>
+	<% else %>
+		<h4>No existen pedidos ingresados</h4>
+	<% end %>
+</div>

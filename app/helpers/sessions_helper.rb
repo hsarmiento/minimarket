@@ -6,8 +6,8 @@ module SessionsHelper
 	end
 
 	def current_user=(user)
-    @current_user = user
-  end
+   		@current_user = user
+  	end
 
 	def current_user
 		@current_user ||= User.find_by_remember_token(cookies[:remember_token])
@@ -34,4 +34,13 @@ module SessionsHelper
   	def store_location
     	session[:return_to] = request.url
   	end
+
+
+	 def signed_in_user
+	    unless signed_in?
+	        store_location
+	        flash[:notice] = "Tienes que registrarte para entrar"
+	        redirect_to login_url
+	    end
+	 end
 end

@@ -8,6 +8,13 @@ gem 'rails', '3.2.9'
 gem 'pg'
 gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '3.0.1'
+gem 'annotate', '2.5.0'
+gem 'json'
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
+gem 'bootstrap-datepicker-rails'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'rails-i18n'
 
 
 # Gems used only for assets and not required

@@ -1,0 +1,115 @@
+<% provide(:title, 'Proveedor: '+@provider.name) %>
+	
+
+<div class="row">
+	<h1><%= @provider.name %></h1>
+	<h2>Ingresar Pedido</h2>
+	<div class="span6 offset3">
+		<%= form_for(:order, url: orders_path, class: 'center') do |o|%>
+
+			<%= o.label 'Monto'%>
+			<%= o.text_field :amount %>
+			<%= o.label 'Numero de factura'%>
+			<%= o.text_field :invoice %>
+			<%= o.label 'Fecha de recibo' %>
+			<%= o.date_select :received_at, use_month_numbers: true, prompt: {day: 'Seleccione dia', month: 'Seleccione mes', year: 'Seleccione año'}, order: [:day, :month, :year] %>
+			<%= o.label 'Fecha de pago' %>
+			<%= o.date_select :pay_at ,use_month_numbers: true, prompt: {day: 'Seleccione dia', month: 'Seleccione mes', year: 'Seleccione año'}, order: [:day, :month, :year]%>
+			<%= label :pay_type, 'Forma de pago' %>
+			<div class="row-fluid">
+				<div class="span2">
+					<%= o.radio_button :pay_type, 1, checked: true%>
+					<%= o.label :pay_type, 'Efectivo', value: 1, class: 'label_radio' %>
+				</div>
+				<div class="span2">
+					<%= o.radio_button :pay_type, 2%>
+					<%= o.label :pay_type, 'Cheque 7 días', value: 2, class: 'label_radio' %>
+				</div>
+				<div class="span2">
+					<%= o.radio_button :pay_type, 3%>
+					<%= o.label :pay_type, 'Cheque a 14 días', value: 3, class: 'label_radio' %>
+				</div>
+				<div class="span2">
+					<%= o.radio_button :pay_type, 4%>
+					<%= o.label :pay_type, 'Cheque a 30', value: 4, class: 'label_radio'  %>
+				</div>
+				<div class="span2">
+					<%= o.radio_button :pay_type, 5%>
+					<%= o.label :pay_type, 'Cheque a 60', value: 5, class: 'label_radio'  %>
+				</div>
+			</div>
+			<%= o.label 'Numero de cheque' ,id: 'label_check'%>
+			<%= o.text_field :number_check, value: ''%>
+			<br/>
+			<%= o.submit "Guardar", class: "btn btn-large btn-primary center" %>
+
+		<% end %>
+	</div>
+	<div class="prueba"></div>
+</div>
+
+<hr>
+
+<div class="row">
+	<h2>Listado de Pedidos (<%= @provider.orders.count %>)</h2>
+	<% if @provider.orders.any? %>
+		<div class="span9 offset3">
+			<table class="table table-striped">
+  				<thead>
+    				<tr>
+    					<th>Número factura</th>
+	      				<th>Monto</th>	      				
+	      				<th>Forma de pago</th>
+	      				<th>Número cheque</th>
+		     			<th>Fecha de recibo</th>
+		     			<th>Fecha de pago</th>
+		     			<th></th>	     			
+    				</tr>
+  				</thead>
+  				<tbody>
+  					<% @orders.each do |order| %>
+	    				<tr>
+	    					<td><%= order.invoice%></td>
+		      				<td>$ <%= order.amount.to_i%></td>		      				
+		      				<% if order.pay_type == 1%>
+		      					<td>Efectivo</td>
+	      					<% elsif  order.pay_type == 2%>
+	      						<td>Cheque 7 dias</td>
+      						<% elsif  order.pay_type == 3%>
+      							<td>Cheque 14 dias</td>
+  							<% elsif  order.pay_type == 4%>
+      							<td>Cheque 30 dias</td>
+  							<% elsif  order.pay_type == 5%>
+      							<td>Cheque 60 dias</td>
+  							<% end %>
+  							<td><%= order.number_check%></td>
+		      				<td><%= order.received_at.strftime("%d-%m-%Y")%></td>
+		      				<td><%= order.pay_at.strftime("%d-%m-%Y")%></td>
+		      				<td><%= link_to 'Eliminar', order, method: :delete, data: {confirm: "Esta seguro de eliminar este pedido?"} %></td>
+		      				
+		    			</tr>
+    				<% end %>
+  				</tbody>
+			</table>
+			<%= will_paginate @orders%>
+		</div>
+	<% else %>
+		<h4>No existen pedidos ingresados</h4>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	$("#order_pay_type_2, #order_pay_type_3, #order_pay_type_4, #order_pay_type_5").click(function (){
+		$("#label_check").fadeIn('slow');
+		$("#order_number_check").fadeIn('slow');
+		console.log("bla");
+	});
+
+	$("#order_pay_type_1").click(function (){
+		$("#label_check").fadeOut('slow');
+		$("#order_number_check").fadeOut('slow');
+		console.log("bla");
+	});
+</script>
+
+

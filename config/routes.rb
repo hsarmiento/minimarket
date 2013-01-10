@@ -4,9 +4,13 @@ Minimarket::Application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :providers 
+  resources :orders
+
+  
 
   root to: 'sessions#new'
-  match '/', to: 'static_pages#home'
+  match '/', to: 'sessions#new'
   match '/login', to: 'sessions#new'
   match '/logout', to: 'sessions#destroy', via: :delete
   #match '/signup', to: 'users#new'

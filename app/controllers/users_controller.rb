@@ -86,14 +86,6 @@ class UsersController < ApplicationController
 
   private 
 
-  def signed_in_user
-    unless signed_in?
-        store_location
-        flash[:notice] = "Tienes que registrarte para entrar"
-        redirect_to login_url
-    end
-  end
-
   def correct_user
       @user = User.find(params[:id])
       unless current_user?(@user)

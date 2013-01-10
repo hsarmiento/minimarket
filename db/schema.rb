@@ -11,7 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130102165308) do
+ActiveRecord::Schema.define(:version => 20130109131336) do
+
+  create_table "orders", :force => true do |t|
+    t.integer  "provider_id"
+    t.datetime "pay_at"
+    t.integer  "pay_type"
+    t.float    "amount"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.datetime "received_at"
+    t.string   "invoice"
+    t.string   "number_check"
+  end
+
+  create_table "providers", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "providers", ["name"], :name => "index_providers_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "name"

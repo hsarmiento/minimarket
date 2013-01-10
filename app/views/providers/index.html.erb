@@ -1,0 +1,48 @@
+<%= provide(:title, "Proveedores")%>
+<div class="row">
+	<h1>Proveedores</h1>
+	<div class="span5 offset3">
+		<h2>Ingresar nuevo proveedor</h2>
+		<%= form_for(:provider, url: providers_path, class: 'center') do |p|%>
+
+			<%= p.label 'Nombre'%>
+			<%= p.text_field :name %>
+
+			<%= p.label 'Telefono' %>
+			<%= p.text_field :phone %>
+
+			 <%= p.submit "Guardar", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<h2>Listado de proveedores</h2>
+	<div class="span6 offset3">
+		<table class="table table-striped">
+  			<thead>
+    			<tr>
+      				<th>Nombre</th>
+	     			<th>Telefono</th>
+	     			<th></th>
+	     			<th></th>
+    			</tr>
+  			</thead>
+  			<tbody>
+  				<% @providers.each do |provider| %>
+	    			<tr>
+	      				<td><%= provider.name%></td>
+	      				<td><%= provider.phone%></td>
+	      				<td><%= link_to 'Ver pedidos', provider %></td>
+      					<td><%= link_to 'Editar', edit_provider_path(provider) %></td>
+	      				<td><%= link_to 'Eliminar', provider, method: :delete, data: {confirm: "Esta seguro de eliminar este proveedor?"} %></td>
+	    			</tr>
+    			<% end %>
+  			</tbody>
+		</table>
+		<%= will_paginate %>
+	</div>
+</div>
+
+
+
